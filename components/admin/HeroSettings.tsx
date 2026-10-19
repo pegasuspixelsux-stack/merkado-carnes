@@ -177,7 +177,7 @@ type Device = "desktop" | "mobile";
 const LIST_KEY = { desktop: "desktopSlides", mobile: "mobileSlides" } as const;
 const DEVICE_HELP: Record<Device, string> = {
   desktop: "Se muestran en pantallas de 768 px o más. Funcionan mejor las fotos horizontales.",
-  mobile: "Se muestran en celulares. Funcionan mejor las fotos cuadradas o verticales. Si este grupo está vacío, se usan las diapositivas de escritorio.",
+  mobile: "Se muestran en celulares. Funcionan mejor las fotos cuadradas o verticales. Si este grupo tiene menos de 2 diapositivas, los celulares usan las de escritorio para que la presentación rote.",
 };
 
 export default function HeroSettings() {

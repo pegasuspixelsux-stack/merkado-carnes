@@ -85,7 +85,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={busy}
-          className="w-full rounded-full bg-chestnut px-5 py-3 text-sm font-medium text-white transition-all hover:bg-chestnut-hover active:scale-[0.98] disabled:opacity-60 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+          className="w-full rounded-full bg-chestnut px-5 py-3 text-sm font-medium text-white transition-all hover:bg-chestnut-hover active:scale-[0.98] disabled:opacity-60"
         >
           {busy ? "Ingresando" : "Ingresar"}
         </button>

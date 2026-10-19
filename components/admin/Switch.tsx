@@ -17,7 +17,7 @@ export default function Switch({
       aria-label={label}
       onClick={() => onChange(!checked)}
       className={`relative h-6 w-10 shrink-0 rounded-full transition-colors ${
-        checked ? "bg-chestnut dark:bg-white" : "bg-walnut/20 dark:bg-zinc-700"
+        checked ? "bg-chestnut" : "bg-walnut/20 dark:bg-zinc-700"
       }`}
     >
       <span

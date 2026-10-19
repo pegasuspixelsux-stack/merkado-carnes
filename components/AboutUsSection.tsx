@@ -14,8 +14,9 @@ function subscribeHash(onChange: () => void) {
 const hashWantsAbout = () => window.location.hash === "#about";
 
 // A full-width band that sits directly on top of the footer. It tells the story only: the address,
-// phone, WhatsApp and hours already live in the footer, so they are not repeated here.
+// region, WhatsApp and hours already live in the footer, so they are not repeated here.
 export default function AboutUsSection() {
+  const { about } = storeInfo;
   // Closed by default so the menu comes first. `touched` records the visitor's own choice; until
   // they make one, a #about link in the URL decides.
   const hashRequested = useSyncExternalStore(subscribeHash, hashWantsAbout, () => false);
@@ -51,7 +52,7 @@ export default function AboutUsSection() {
           className="w-full text-left text-base font-medium text-walnut transition-colors hover:bg-walnut/5 dark:text-white dark:hover:bg-white/5"
         >
           <span className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-6 py-4">
-            Conocé nuestra historia
+            Conocé sobre nosotros
             <ChevronDown
               className={`h-5 w-5 shrink-0 transition-transform duration-300 motion-reduce:transition-none ${open ? "rotate-180" : ""}`}
               aria-hidden="true"
@@ -72,22 +73,41 @@ export default function AboutUsSection() {
         }`}
       >
         <div className="min-h-0 overflow-hidden">
-          <div className="mx-auto grid max-w-[1440px] gap-6 border-t border-walnut/15 px-6 py-8 md:grid-cols-2 md:items-center md:gap-10 md:py-10 dark:border-white/10">
-            <PastaImage
-              url={storeInfo.about.imageUrl}
-              alt={storeInfo.about.imageAlt}
-              className="aspect-[4/3] w-full rounded-[14px]"
-            />
+          <div className="mx-auto grid max-w-[1440px] gap-8 border-t border-walnut/15 px-6 py-8 md:grid-cols-2 md:items-center md:gap-12 md:py-12 dark:border-white/10">
+            {/* Two photos: a wide main shot with a smaller one overlapping its corner. */}
+            <div className="relative pb-10 pr-8 md:pb-12 md:pr-12">
+              <PastaImage
+                key={about.imageUrl}
+                url={about.imageUrl}
+                alt={about.imageAlt}
+                className="aspect-[4/3] w-full rounded-[14px]"
+              />
+              <PastaImage
+                key={about.secondaryImageUrl}
+                url={about.secondaryImageUrl}
+                alt={about.secondaryImageAlt}
+                className="absolute bottom-0 right-0 aspect-[4/3] w-1/2 rounded-[14px] border-4 border-background shadow-lg"
+              />
+            </div>
 
             <div>
               <h3 className="text-balance text-2xl font-semibold tracking-tight text-walnut md:text-3xl dark:text-white">
-                Pasta artesanal fresca desde {storeInfo.foundedYear}
+                {about.headline}
               </h3>
-              <div className="mt-4 space-y-3 text-base leading-relaxed text-muted dark:text-zinc-400">
-                {storeInfo.about.paragraphs.map((p) => (
-                  <p key={p}>{p}</p>
+              <p className="mt-2 text-lg font-medium text-chestnut dark:text-accent">{about.subheadline}</p>
+              <p className="mt-4 text-base leading-relaxed text-muted dark:text-zinc-400">{about.body}</p>
+
+              <ul className="mt-6 grid gap-3 sm:grid-cols-3">
+                {about.highlights.map((h) => (
+                  <li
+                    key={h.title}
+                    className="rounded-xl border border-walnut/15 bg-card p-4 dark:border-white/10"
+                  >
+                    <p className="text-sm font-semibold text-walnut dark:text-white">{h.title}</p>
+                    <p className="mt-1 text-sm leading-snug text-muted dark:text-zinc-400">{h.text}</p>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </div>
         </div>

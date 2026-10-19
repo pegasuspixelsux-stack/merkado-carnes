@@ -14,16 +14,18 @@ import ThemeToggle from "@/components/ThemeToggle";
 import CategoryManager from "./CategoryManager";
 import HeroSettings from "./HeroSettings";
 import ItemForm from "./ItemForm";
+import OrderSettings from "./OrderSettings";
 import Modal from "./Modal";
 import Switch from "./Switch";
 
 // "new" opens the add form, an item opens the edit form, null keeps the dialog closed.
 type Editing = PastaItem | "new" | null;
-type Tab = "inventory" | "categories" | "hero";
+type Tab = "inventory" | "categories" | "hero" | "orders";
 const TABS: { id: Tab; label: string }[] = [
   { id: "inventory", label: "Inventario" },
   { id: "categories", label: "Categorías" },
   { id: "hero", label: "Portada" },
+  { id: "orders", label: "Pedidos" },
 ];
 
 const ghostBtn =
@@ -124,7 +126,9 @@ export default function Dashboard() {
         </div>
 
         <div id="dashboard-panel" role="tabpanel" aria-labelledby={`tab-${tab}`}>
-        {tab === "hero" ? (
+        {tab === "orders" ? (
+          <OrderSettings />
+        ) : tab === "hero" ? (
           <HeroSettings />
         ) : tab === "categories" ? (
           <CategoryManager />
@@ -142,7 +146,7 @@ export default function Dashboard() {
           <button
             type="button"
             onClick={() => setEditing("new")}
-            className="inline-flex items-center gap-1.5 rounded-full bg-chestnut px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-chestnut-hover active:scale-[0.97] dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+            className="inline-flex items-center gap-1.5 rounded-full bg-chestnut px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-chestnut-hover active:scale-[0.97]"
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
             Agregar producto

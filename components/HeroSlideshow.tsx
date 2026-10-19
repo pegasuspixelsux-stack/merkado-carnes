@@ -94,12 +94,23 @@ export default function HeroSlideshow({ config }: { config: HeroConfig }) {
     overlayColorOpacity,
   } = config;
 
-  // Phones use the mobile set and wider screens the desktop set. If the chosen set is empty, the
-  // other one fills in so the hero is never bare just because one side was left unset.
+  // Phones use the mobile set and wider screens the desktop set. A phone with fewer than two mobile
+  // slides would show a still image, so it borrows the desktop set when that one can rotate. If a
+  // set is empty, the other one fills in so the hero is never bare.
   const device = useDevice();
-  const preferred = device === "mobile" ? mobileSlides : desktopSlides;
-  const fallback = device === "mobile" ? desktopSlides : mobileSlides;
-  const slides = device === null ? [] : preferred.length ? preferred : fallback;
+  const mobileSet = mobileSlides.length >= 2 || (mobileSlides.length > 0 && desktopSlides.length < 2);
+  const slides =
+    device === null
+      ? []
+      : device === "mobile"
+        ? mobileSet
+          ? mobileSlides
+          : desktopSlides.length
+            ? desktopSlides
+            : mobileSlides
+        : desktopSlides.length
+          ? desktopSlides
+          : mobileSlides;
   const count = slides.length;
 
   const reducedMotion = usePrefersReducedMotion();

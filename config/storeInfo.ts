@@ -1,8 +1,8 @@
 // The single source of truth for business details. The About section and the footer both read
-// from here, so update a phone number, the hours or a link in one place.
+// from here, so update the hours, a link or the story in one place.
 //
-// PLACEHOLDERS: the address, phone, email, founding year, social links and story below are sample
-// values (a Montevideo address and a +598 number). Replace them with the real business details.
+// PLACEHOLDERS: the hours and social links below are sample values. Replace them with the real
+// business details. The WhatsApp number for orders is set in the admin Pedidos tab.
 
 export interface HoursRow {
   days: string;
@@ -10,20 +10,13 @@ export interface HoursRow {
 }
 
 export const storeInfo = {
-  name: "Merkado",
-  summary: "Pasta artesanal fresca, hecha todos los días con recetas familiares de siempre.",
-  foundedYear: 2018,
+  name: "Merkado de Carnes",
+  summary:
+    "Merkado de Carnes — Tu boutique de carnes de confianza. Cortes seleccionados, achuras de primera y packs parrilleros directos a tu puerta.",
   copyrightYear: 2026,
 
-  address: {
-    street: "Calle Ejemplo 1234",
-    area: "Cordón",
-    city: "Montevideo",
-  },
-
-  phone: { display: "+598 2 123 4567", tel: "+59821234567" },
-  email: "hola@merkado.example",
-  // WhatsApp orders use NEXT_PUBLIC_WHATSAPP_NUMBER (digits, with country code). See lib/format.ts.
+  region: "Maldonado & Punta del Este, Uruguay",
+  contactNote: "Atención al cliente y pedidos por WhatsApp.",
 
   hours: [
     { days: "Martes a domingo", times: "11:30 a 15:30 y 19:00 a 23:00" },
@@ -39,16 +32,18 @@ export const storeInfo = {
   },
 
   about: {
-    paragraphs: [
-      "Todas las mañanas estiramos, cortamos y rellenamos la pasta a mano en una cocina chica, con las mismas recetas de familia con las que crecimos. Huevos de chacras cercanas, harina molida en la región y quesos hechos en pequeñas tandas.",
-      "Cocinamos solo lo que serviríamos en nuestra propia mesa, así que nada queda guardado en una estantería. Pedí hoy y tu pasta se hace hoy.",
-      "Retirala en el local o pedí que te la llevemos, y consultanos lo que quieras sobre tiempos de cocción o salsas. Con gusto te ayudamos.",
+    headline: "Tradición Familiar en Cada Corte",
+    subheadline: "Más de 30 años seleccionando la mejor carne para la mesa uruguaya.",
+    body: "Merkado Carnes nació como una carnicería boutique de barrio, impulsada por la pasión de nuestra familia por el buen asado y el respeto por el oficio tradicional. Seleccionamos cuidadosamente los mejores cortes de vacuno, cerdo y ave de productores locales, garantizando frescura, maduración óptima y un sabor inconfundible. Hoy combinamos el saber artesanal de toda la vida con la comodidad digital para que recibas en tu hogar la calidad que nos caracteriza.",
+    highlights: [
+      { title: "Cortes de Selección", text: "Ganadería local seleccionada y trazabilidad garantizada." },
+      { title: "Desposte Artesanal", text: "Atención personalizada y cortes a medida para tu parrilla o cocina." },
+      { title: "Envío y Cadena de Frío", text: "Empaquetado al vacío en bolsas térmicas para máxima frescura." },
     ],
-    // Photo: hands feeding fresh tagliatelle through a pasta machine, from Unsplash (Unsplash License).
-    imageUrl: "https://images.unsplash.com/photo-1642354571956-d77dfd9596bb?w=1200&q=70&auto=format",
-    imageAlt: "Manos guiando tagliatelle fresco al salir de una máquina de pasta",
+    // Photos from Unsplash (Unsplash License).
+    imageUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop",
+    imageAlt: "Preparación artesanal de carne sobre una tabla de madera",
+    secondaryImageUrl: "https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=800&auto=format&fit=crop",
+    secondaryImageAlt: "Cortes listos para la parrilla tradicional",
   },
 } as const;
-
-export const addressLine = () =>
-  `${storeInfo.address.street}, ${storeInfo.address.area}, ${storeInfo.address.city}`;

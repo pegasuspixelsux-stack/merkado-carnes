@@ -1,10 +1,10 @@
 import { Minus, Plus } from "lucide-react";
+import { MAX_QUANTITY, QUANTITY_STEP, useCart } from "@/store/useCart";
 import type { PastaItem } from "@/types/pasta";
-import { formatPrice } from "@/lib/format";
+import { formatPrice, formatQuantity } from "@/lib/format";
 import FillText from "./FillText";
 import PastaImage from "./PastaImage";
 
-export const MAX_QUANTITY = 99;
 
 const stepBtn =
   "grid h-8 w-8 shrink-0 place-items-center rounded-full text-walnut transition-all hover:bg-walnut/5 active:scale-[0.92] disabled:pointer-events-none disabled:text-zinc-300 sm:h-9 sm:w-9 dark:text-white dark:hover:bg-white/10 dark:disabled:text-zinc-700";
@@ -12,15 +12,10 @@ const stepBtn =
 // Two columns at every width. The image is a flush 1:1 square on the left and sets the card's
 // height. The text column is sized to fit inside that square, so the description is clamped to
 // fewer lines on small screens instead of making the card taller.
-export default function PastaCard({
-  item,
-  quantity,
-  onQuantityChange,
-}: {
-  item: PastaItem;
-  quantity: number;
-  onQuantityChange: (next: number) => void;
-}) {
+export default function PastaCard({ item }: { item: PastaItem }) {
+  const cart = useCart();
+  const quantity = cart.quantityOf(item.id);
+  const onQuantityChange = (next: number) => cart.updateQuantity(item.id, next);
   const soldOut = !item.available;
 
   return (
@@ -34,7 +29,7 @@ export default function PastaCard({
           className={`absolute inset-0 h-full w-full ${soldOut ? "opacity-50 grayscale" : ""}`}
         />
         {soldOut && (
-          <span className="absolute left-2 top-2 rounded-full bg-chestnut px-2.5 py-1 text-xs font-medium text-white sm:left-3 sm:top-3 dark:bg-white dark:text-black">
+          <span className="absolute left-2 top-2 rounded-full bg-chestnut px-2.5 py-1 text-xs font-medium text-white sm:left-3 sm:top-3">
             Agotado
           </span>
         )}
@@ -55,6 +50,17 @@ export default function PastaCard({
           </div>
 
           <div className="mt-auto flex items-end lg:pt-4 justify-between gap-2 sm:gap-3">
+            {quantity === 0 && !soldOut ? (
+              <button
+                type="button"
+                onClick={() => cart.addItem(item)}
+                aria-label={`Agregar ${item.title} al pedido`}
+                className="inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-2 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.96] sm:px-4"
+              >
+                <Plus className="h-4 w-4" aria-hidden="true" />
+                Agregar
+              </button>
+            ) : (
             <div>
               <p id={`qty-${item.id}`} className="mb-1 hidden text-xs text-muted sm:block dark:text-zinc-400">
                 Cantidad
@@ -66,7 +72,7 @@ export default function PastaCard({
               >
                 <button
                   type="button"
-                  onClick={() => onQuantityChange(quantity - 1)}
+                  onClick={() => onQuantityChange(quantity - QUANTITY_STEP)}
                   disabled={soldOut || quantity <= 0}
                   aria-label={`Quitar una unidad de ${item.title}`}
                   className={stepBtn}
@@ -75,13 +81,13 @@ export default function PastaCard({
                 </button>
                 <output
                   aria-live="polite"
-                  className="w-6 text-center text-sm font-semibold tabular-nums text-walnut sm:w-7 dark:text-white"
+                  className="w-9 text-center text-sm font-semibold tabular-nums text-walnut sm:w-10 dark:text-white"
                 >
-                  {quantity}
+                  {formatQuantity(quantity)}
                 </output>
                 <button
                   type="button"
-                  onClick={() => onQuantityChange(quantity + 1)}
+                  onClick={() => onQuantityChange(quantity + QUANTITY_STEP)}
                   disabled={soldOut || quantity >= MAX_QUANTITY}
                   aria-label={`Agregar una unidad de ${item.title}`}
                   className={stepBtn}
@@ -90,6 +96,7 @@ export default function PastaCard({
                 </button>
               </div>
             </div>
+            )}
 
             <div className="min-w-0 text-right">
               <p className="mb-1 hidden text-xs text-muted sm:block dark:text-zinc-400">Precio</p>

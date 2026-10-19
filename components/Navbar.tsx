@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useHeroConfig } from "@/hooks/useHeroConfig";
 import OpenAboutLink from "@/components/OpenAboutLink";
 import { navLinks } from "@/config/navLinks";
+import { storeInfo } from "@/config/storeInfo";
 import { Menu, Search, X } from "lucide-react";
 
 // The links are shared with the footer (config/navLinks.ts). "Sobre nosotros" also opens the About
@@ -122,7 +123,7 @@ export default function Navbar() {
             href="/"
             className="col-start-2 row-start-1 justify-self-center text-lg font-bold tracking-tight text-walnut md:col-start-1 md:justify-self-start dark:text-white"
           >
-            Merkado
+            {storeInfo.name}
           </Link>
         )}
 

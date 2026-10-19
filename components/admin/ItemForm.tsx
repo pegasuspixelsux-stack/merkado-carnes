@@ -202,7 +202,7 @@ export default function ItemForm({
         <button
           type="submit"
           disabled={saving}
-          className="rounded-full bg-chestnut px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-chestnut-hover active:scale-[0.97] disabled:opacity-60 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
+          className="rounded-full bg-chestnut px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-chestnut-hover active:scale-[0.97] disabled:opacity-60"
         >
           {item ? "Guardar cambios" : "Agregar producto"}
         </button>

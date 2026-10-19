@@ -1,7 +1,43 @@
 import type { PastaItem } from "@/types/pasta";
 
-// Starter inventory. Prices are sample values in pesos uruguayos; edit them (and add photos)
-// from the dashboard. An empty imageUrl shows the placeholder.
+// Sample photos from Unsplash (free to use under the Unsplash License), cropped square. They are
+// stock approximations of each cut; replace any of them from the dashboard with your own photos.
+const unsplash = (photo: string) =>
+  `https://images.unsplash.com/photo-${photo}?w=720&h=720&fit=crop&q=75&auto=format`;
+
+// Starter inventory. Prices are sample values in pesos uruguayos; edit them
+// from the dashboard.
+const PHOTOS: Record<string, string> = {
+  "asado-tira": "1544025162-d76694265947",
+  "pulpon-vacio": "1558030006-450675393462",
+  "colita-cuadril": "1529692236671-f1f6cf9683ba",
+  "entrana-fina": "1600891964092-4316c288032e",
+  "picana": "1546964124-0cce460f38ef",
+  "bife-ancho": "1551028150-64b9f398f678",
+  "bife-angosto": "1603048297172-c92544798d5a",
+  "nalga": "1602470520998-f4a52199a3d6",
+  "bola-lomo": "1448907503123-67254d59ca4f",
+  "peceto": "1588168333986-5078d3ae3976",
+  "bondiola": "1432139555190-58524dae6a55",
+  "solomillo": "1432139509613-5c4255815697",
+  "matambrito-cerdo": "1615937657715-bc7b4b7962c1",
+  "costillitas": "1544025162-d76694265947",
+  "pechito-cerdo": "1546964124-0cce460f38ef",
+  "pollo-entero": "1587593810167-a84920ea0781",
+  "pechuga": "1604503468506-a8da13d82791",
+  "muslos-encuentro": "1606728035253-49e8a23146de",
+  "milanesas-pollo": "1626645738196-c2a7c87a8f58",
+  "alitas": "1598103442097-8b74394b95c6",
+  "chorizo-criollo": "1607623814075-e51df1bdc82f",
+  "chorizo-cerdo": "1529042410759-befb1204b468",
+  "morcilla": "1615937657715-bc7b4b7962c1",
+  "chinchulines": "1600891964092-4316c288032e",
+  "mollejas": "1432139509613-5c4255815697",
+  "pack-parri": "1607623814075-e51df1bdc82f",
+  "pack-semana": "1448907503123-67254d59ca4f",
+  "pack-domingo": "1529692236671-f1f6cf9683ba",
+};
+
 const item = (
   id: string,
   title: string,
@@ -9,7 +45,7 @@ const item = (
   price: number,
   unit: string,
   description: string,
-): PastaItem => ({ id: `seed-${id}`, title, category, description, price, unit, imageUrl: "", available: true });
+): PastaItem => ({ id: `seed-${id}`, title, category, description, price, unit, imageUrl: unsplash(PHOTOS[id]), available: true });
 
 export const SEED_ITEMS: PastaItem[] = [
   // Carne de Vaca

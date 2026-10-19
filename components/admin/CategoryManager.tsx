@@ -18,7 +18,7 @@ const ghostBtn =
 const iconBtn =
   "grid h-9 w-9 place-items-center rounded-full text-muted transition-colors hover:bg-walnut/5 hover:text-walnut dark:text-zinc-400 dark:hover:bg-white/10 dark:hover:text-white";
 const primaryBtn =
-  "inline-flex items-center gap-1.5 rounded-full bg-chestnut px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-chestnut-hover active:scale-[0.97] dark:bg-white dark:text-black dark:hover:bg-zinc-200";
+  "inline-flex items-center gap-1.5 rounded-full bg-chestnut px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-chestnut-hover active:scale-[0.97]";
 
 export default function CategoryManager() {
   const { categories } = useCategories();
