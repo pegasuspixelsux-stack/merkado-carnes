@@ -4,24 +4,34 @@ import type { HeroConfig } from "@/types/hero";
 export const MAX_SLIDES = 3;
 export const INTERVAL_OPTIONS_MS = [3000, 5000, 7000, 10000] as const;
 
-// The default hero uses the banner artwork in public/hero_images: the landscape file on screens
-// 768px wide and up, the square file on phones. The artwork already carries its own text, so the
-// heading and supporting text overlay starts switched off (the heading below still serves as the
-// page's hidden h1). Turn the overlay on, or swap the images, from the admin Hero tab.
-const ALT =
-  "Pastas artesanales: raviolones de jamón y queso, sorrentinos de ricota y queso, y canelones";
-
+// The default hero is three promo banners in public/hero_images. Their artwork already carries its
+// own text, so the heading and supporting text overlay starts switched off (the heading below
+// still serves as the page's hidden h1). The mobile set starts empty: phones borrow these same
+// slides (cropped square) until square mobile versions are added. Turn the overlay on, or swap the
+// images, from the admin Hero tab.
 export const DEFAULT_HERO_CONFIG: HeroConfig = {
   showTextOverlay: false,
-  heading: "Pasta fresca de hoy",
-  subtext: "Estiramos y rellenamos a mano cada mañana. Elegí lo que necesitás y pedí por WhatsApp.",
+  heading: "Carnes frescas de Maldonado",
+  subtext: "Cortes seleccionados, achuras y packs parrilleros. Elegí lo que necesitás y pedí por WhatsApp.",
   desktopSlides: [
-    { id: "hero-landscape", imageUrl: "/hero_images/pasta_landscape.jpg", altText: ALT },
+    {
+      id: "hero-asado",
+      imageUrl: "/hero_images/hero_desktop_1.jpg",
+      altText: "Super oferta de asado: asado de tira premium a $399 el kilo",
+    },
+    {
+      id: "hero-cerdo",
+      imageUrl: "/hero_images/hero_desktop_2.jpg",
+      altText: "Pack Parri-Cerdo: chuletas, costillas, panceta y brochetas a $3199",
+    },
+    {
+      id: "hero-pollo",
+      imageUrl: "/hero_images/hero_desktop_3.jpg",
+      altText: "Pack familiar de pollo: patas, pechugas y milanesas a $2499",
+    },
   ],
-  mobileSlides: [
-    { id: "hero-square", imageUrl: "/hero_images/pasta_square.jpg", altText: ALT },
-  ],
-  autoplayIntervalMs: 5000,
+  mobileSlides: [],
+  autoplayIntervalMs: 3000,
   enableAutoplay: true,
   showNavTitle: true,
   overlayDarkness: 0,
