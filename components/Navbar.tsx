@@ -83,7 +83,7 @@ export default function Navbar() {
         type="search"
         value={query}
         onChange={(e) => onType(e.target.value)}
-        placeholder="Buscá pastas, salsas, quesos"
+        placeholder="Buscá cortes, pollo, achuras"
         aria-label="Buscar en el catálogo"
         autoFocus={autoFocus}
         className={`${field} [&::-webkit-search-cancel-button]:appearance-none`}
@@ -95,14 +95,14 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-300 motion-reduce:transition-none ${
         solid
-          ? "glass border-walnut/15 bg-background/50 backdrop-blur-xl backdrop-saturate-150 dark:border-white/10 dark:bg-zinc-950/50"
+          ? "glass border-walnut/15 bg-background/50 backdrop-blur-xl backdrop-saturate-150 dark:border-white/10 dark:bg-background/50"
           : "border-transparent bg-transparent"
       }`}
     >
       {/* Mobile: burger left, brand centered, search right. Desktop: brand, links, search. */}
       <nav
         aria-label="Principal"
-        className={`mx-auto grid h-16 max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-6 md:h-14`}
+        className={`mx-auto grid h-16 max-w-[1440px] grid-cols-[1fr_auto_1fr] items-center px-6 md:h-14`}
       >
         <div className="col-start-1 row-start-1 flex justify-start md:hidden">
           <button
@@ -161,7 +161,7 @@ export default function Navbar() {
       </nav>
 
       {panel === "menu" && (
-        <div id="mobile-menu" className="border-t border-walnut/15 bg-background/90 px-6 pb-4 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/90 md:hidden">
+        <div id="mobile-menu" className="border-t border-walnut/15 bg-background/90 px-6 pb-4 backdrop-blur-xl dark:border-white/10 dark:bg-background/90 md:hidden">
           <ul>
             {links.map((l) => (
               <li key={l.href}>
@@ -188,7 +188,7 @@ export default function Navbar() {
       )}
 
       {panel === "search" && (
-        <div id="mobile-search" className="border-t border-walnut/15 bg-background/90 px-6 py-3 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/90 md:hidden">
+        <div id="mobile-search" className="border-t border-walnut/15 bg-background/90 px-6 py-3 backdrop-blur-xl dark:border-white/10 dark:bg-background/90 md:hidden">
           {searchField(true)}
         </div>
       )}

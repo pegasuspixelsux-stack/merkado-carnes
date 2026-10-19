@@ -12,9 +12,9 @@ import Modal from "./Modal";
 import Switch from "./Switch";
 
 const card =
-  "rounded-[14px] border border-walnut/15 bg-cream/70 p-5 sm:p-6 dark:border-white/10 dark:bg-zinc-900/50";
+  "rounded-[14px] border border-walnut/15 bg-cream/70 p-5 sm:p-6 dark:border-white/10 dark:bg-card";
 const input =
-  "w-full rounded-xl border border-walnut/15 bg-cream px-3.5 py-2.5 text-sm text-walnut placeholder:text-zinc-500 focus:border-walnut/30 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-zinc-950 dark:text-white dark:focus:border-white/30";
+  "w-full rounded-xl border border-walnut/15 bg-cream px-3.5 py-2.5 text-sm text-walnut placeholder:text-zinc-500 focus:border-walnut/30 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/10 dark:bg-background dark:text-white dark:focus:border-white/30";
 const label = "mb-1.5 block text-sm font-medium text-walnut dark:text-zinc-200";
 const ghostBtn =
   "inline-flex items-center justify-center gap-1.5 rounded-full border border-walnut/15 px-4 py-2 text-sm font-medium text-walnut transition-colors hover:border-walnut/30 disabled:pointer-events-none disabled:opacity-50 dark:border-white/10 dark:text-zinc-300 dark:hover:border-white/25 dark:hover:text-white";
@@ -451,7 +451,7 @@ export default function HeroSettings() {
               {slides.map((slide, i) => (
                 <li
                   key={slide.id}
-                  className="flex flex-wrap items-center gap-x-4 gap-y-3 rounded-xl border border-walnut/15 bg-cream/60 p-3 dark:border-white/10 dark:bg-zinc-950/40"
+                  className="flex flex-wrap items-center gap-x-4 gap-y-3 rounded-xl border border-walnut/15 bg-cream/60 p-3 dark:border-white/10 dark:bg-background/40"
                 >
                   <span className="w-5 text-center text-sm font-medium tabular-nums text-muted dark:text-zinc-500">{i + 1}</span>
                   <PastaImage key={slide.imageUrl} url={slide.imageUrl} alt="" className="h-16 w-28 shrink-0 rounded-lg" />
@@ -527,7 +527,7 @@ export default function HeroSettings() {
                   value={tint.draft}
                   onChange={(e) => tint.change(e.target.value)}
                   onBlur={tint.flush}
-                  className="h-10 w-14 shrink-0 cursor-pointer rounded-lg border border-walnut/15 bg-cream p-1 dark:border-white/10 dark:bg-zinc-950"
+                  className="h-10 w-14 shrink-0 cursor-pointer rounded-lg border border-walnut/15 bg-cream p-1 dark:border-white/10 dark:bg-background"
                 />
                 <span className="text-sm tabular-nums text-muted dark:text-zinc-400">{tint.draft.toUpperCase()}</span>
               </div>

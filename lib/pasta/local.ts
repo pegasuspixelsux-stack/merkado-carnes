@@ -2,7 +2,7 @@ import type { PastaItem } from "@/types/pasta";
 import type { PastaBackend } from "./backend";
 import { SEED_ITEMS } from "./seed";
 
-const KEY = "merkado:pasta-inventory:v1";
+const KEY = "merkado:pasta-inventory:v2";
 
 const listeners = new Set<() => void>();
 let cache: PastaItem[] | null = null;

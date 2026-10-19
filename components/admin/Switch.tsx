@@ -22,7 +22,7 @@ export default function Switch({
     >
       <span
         className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full shadow-sm transition-transform duration-200 ${
-          checked ? "translate-x-4 bg-cream dark:bg-zinc-950" : "bg-cream dark:bg-zinc-300"
+          checked ? "translate-x-4 bg-cream dark:bg-background" : "bg-cream dark:bg-zinc-300"
         }`}
       />
     </button>

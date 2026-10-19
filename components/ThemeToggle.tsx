@@ -24,7 +24,9 @@ export default function ThemeToggle() {
   const theme = useSyncExternalStore(subscribe, getTheme, getServerTheme);
 
   function apply(next: Theme) {
-    document.documentElement.classList.toggle("dark", next === "dark");
+    const root = document.documentElement;
+    root.classList.toggle("dark", next === "dark");
+    root.classList.toggle("light", next === "light");
     try {
       localStorage.setItem("theme", next);
     } catch {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Check, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Check, Clock, Mail, MapPin, MessageCircle, Phone, Settings } from "lucide-react";
 import { siFacebook, siInstagram, siWhatsapp } from "simple-icons";
 import { addressLine, storeInfo } from "@/config/storeInfo";
 import { whatsappLink } from "@/lib/format";
@@ -34,7 +34,7 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-walnut/15 bg-walnut/[0.04] dark:border-white/10 dark:bg-white/[0.02]">
-      <div className="mx-auto max-w-7xl px-6 py-12">
+      <div className="mx-auto max-w-[1440px] px-6 py-12">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {/* 1. Brand and overview */}
           <div>
@@ -117,8 +117,13 @@ export default function Footer() {
                 </li>
               ))}
               <li>
-                <Link href="/admin/login" className="text-xs text-muted/80 transition-colors hover:text-walnut dark:text-zinc-500 dark:hover:text-white">
-                  Admin
+                <Link
+                  href="/admin"
+                  aria-label="Panel de Administración"
+                  className="flex items-center gap-1 text-xs text-muted opacity-60 transition hover:text-walnut hover:opacity-100 dark:text-zinc-400 dark:hover:text-white"
+                >
+                  <Settings className="h-3.5 w-3.5" aria-hidden="true" />
+                  <span>Admin</span>
                 </Link>
               </li>
             </ul>

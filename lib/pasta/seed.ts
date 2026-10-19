@@ -1,98 +1,52 @@
 import type { PastaItem } from "@/types/pasta";
 
-// Sample photos from Unsplash (free to use under the Unsplash License), cropped square.
-// Replace any of them from the dashboard with your own product photos.
-const unsplash = (photo: string) =>
-  `https://images.unsplash.com/${photo}?w=720&h=720&fit=crop&q=75&auto=format`;
+// Starter inventory. Prices are sample values in pesos uruguayos; edit them (and add photos)
+// from the dashboard. An empty imageUrl shows the placeholder.
+const item = (
+  id: string,
+  title: string,
+  category: string,
+  price: number,
+  unit: string,
+  description: string,
+): PastaItem => ({ id: `seed-${id}`, title, category, description, price, unit, imageUrl: "", available: true });
 
-// Starter inventory.
 export const SEED_ITEMS: PastaItem[] = [
-  {
-    id: "seed-sorrentinos",
-    title: "Sorrentinos de Jamón y Queso",
-    category: "pasta",
-    description:
-      "Redondos y generosos, rellenos de jamón cocido, mozzarella y un toque de nuez moscada. La masa es fina, hecha con huevo, y se cocina en cuatro minutos. Quedan muy bien con salsa fileto, crema o simplemente manteca y salvia. Se entregan frescos, listos para hervir o para congelar.",
-    price: 4200,
-    unit: "12 unidades",
-    imageUrl: unsplash("photo-1587740908075-9e245070dfaa"),
-    available: true,
-  },
-  {
-    id: "seed-tallarines",
-    title: "Tallarines al Huevo",
-    category: "pasta",
-    description:
-      "Cortados a cuchillo y hechos con huevo de campo, tienen una textura firme y un sabor profundo. Se cocinan en tres minutos y sostienen bien tanto una salsa liviana de tomate como un estofado de carne. Se venden por porción de 500 gramos, enrollados en nidos para que lleguen enteros.",
-    price: 850,
-    unit: "500g",
-    imageUrl: unsplash("photo-1633352615955-f0c99e8b7e5a"),
-    available: true,
-  },
-  {
-    id: "seed-ravioles",
-    title: "Ravioles de Verdura y Ricota",
-    category: "pasta",
-    description:
-      "Rellenos de acelga, espinaca y ricota fresca, con un punto de queso rallado y pimienta. La pasta es casera y no lleva conservantes, por eso conviene cocinarla en el día o congelarla. Combinan con salsa de tomate, crema de puerro o un simple hilo de aceite de oliva.",
-    price: 3900,
-    unit: "12 unidades",
-    imageUrl: unsplash("photo-1676832661871-994153cf2d93"),
-    available: true,
-  },
-  {
-    id: "seed-noquis",
-    title: "Ñoquis de Papa",
-    category: "pasta",
-    description:
-      "Hechos con papa cocida al horno, harina y huevo, amasados con poca fuerza para que salgan livianos. Están listos cuando suben a la superficie del agua, en dos o tres minutos. Van bien con bolognesa, pesto o salsa de cuatro quesos. Tradicionalmente se comen el 29 de cada mes.",
-    price: 1100,
-    unit: "kg",
-    imageUrl: unsplash("photo-1630444098747-2afd213cb945"),
-    available: true,
-  },
-  {
-    id: "seed-fusilli",
-    title: "Fusilli Largos",
-    category: "pasta",
-    description:
-      "Enrollados a mano en espiral alrededor de una varilla, uno por uno. La forma retiene las salsas espesas entre las vueltas, así que van muy bien con ragú, pesto de albahaca o verduras salteadas. Se cocinan en cinco minutos y mantienen el punto firme sin pasarse.",
-    price: 1250,
-    unit: "500g",
-    imageUrl: unsplash("photo-1607191717990-fa32f77b4aeb"),
-    available: false,
-  },
-  {
-    id: "seed-bolognesa",
-    title: "Salsa Bolognesa",
-    category: "sauces",
-    description:
-      "Carne picada, tomate triturado, zanahoria, apio y cebolla, cocinados a fuego lento durante cuatro horas con un chorro de vino tinto. Queda espesa y bien sabrosa, ideal sobre tallarines, ñoquis o capas de lasaña. Alcanza para dos porciones abundantes y se conserva cinco días en heladera.",
-    price: 2800,
-    unit: "500g",
-    imageUrl: unsplash("photo-1622973536968-3ead9e780960"),
-    available: true,
-  },
-  {
-    id: "seed-cremoso",
-    title: "Queso Cremoso Casero",
-    category: "cheese",
-    description:
-      "Elaborado con leche entera, cuajo natural y sal marina, de pasta blanda y sabor suave y lácteo. Se funde muy bien, por eso es ideal para rellenar sorrentinos, gratinar pastas al horno o servir en tabla con un poco de miel. Se vende en pieza de medio kilo, envasada al vacío.",
-    price: 3400,
-    unit: "500g",
-    imageUrl: unsplash("photo-1605466237780-80b87584957b"),
-    available: true,
-  },
-  {
-    id: "seed-parmesano",
-    title: "Parmesano Rallado",
-    category: "cheese",
-    description:
-      "Curado durante doce meses y rallado en el día, con ese sabor intenso y un poco salado que lo hace inconfundible. Se agrega al final sobre pastas calientes, risottos o sopas, y también rinde en rellenos. Viene en frasco de vidrio con tapa, para que mantenga el aroma.",
-    price: 2100,
-    unit: "200g",
-    imageUrl: unsplash("photo-1752253509987-f92fd1cf4a78"),
-    available: true,
-  },
+  // Carne de Vaca
+  item("asado-tira", "Asado de Tira", "vaca", 690, "kg", "El corte clásico de la parrilla uruguaya: costillas con buen hueso y veta de grasa que se hace lenta y jugosa al fuego."),
+  item("pulpon-vacio", "Pulpón de Vacío", "vaca", 790, "kg", "Corte tierno y sabroso del flanco, ideal para cocinar entero a fuego medio y cortar en tiras al servir."),
+  item("colita-cuadril", "Colita de Cuadril", "vaca", 820, "kg", "Magra y muy tierna, con una capa fina de grasa. Va perfecta a la parrilla o al horno."),
+  item("entrana-fina", "Entraña Fina", "vaca", 980, "kg", "De sabor intenso y textura suave. Se hace rápido, bien caliente, y se sirve jugosa."),
+  item("picana", "Picaña (Tapa de Cuadril)", "vaca", 890, "kg", "Con su capa de grasa por arriba, se asa entera o en medallones y rinde un sabor profundo."),
+  item("bife-ancho", "Bife Ancho", "vaca", 890, "kg", "Jugoso y bien marmolado, con el hueso y la grasa que le dan sabor. Para plancha o parrilla."),
+  item("bife-angosto", "Bife Angosto", "vaca", 920, "kg", "Corte con hueso, más magro y firme que el ancho. Muy buen punto a la parrilla."),
+  item("nalga", "Nalga (para milanesas)", "vaca", 650, "kg", "Cortada fina y sin nervios, lista para hacer milanesas parejas y tiernas."),
+  item("bola-lomo", "Bola de Lomo", "vaca", 720, "kg", "Magra y versátil: va al horno, a la olla o cortada en bifes para milanesas."),
+  item("peceto", "Peceto", "vaca", 760, "kg", "Magro y de forma pareja, ideal para el horno, relleno o fiambre casero."),
+
+  // Carne de Cerdo
+  item("bondiola", "Bondiola", "cerdo", 580, "kg", "Tierna y con grasa justa. Se asa entera a fuego lento o en lonjas gruesas para sándwich."),
+  item("solomillo", "Solomillo de Cerdo", "cerdo", 620, "kg", "El corte más tierno del cerdo, magro y de cocción rápida. Va al horno o a la plancha."),
+  item("matambrito-cerdo", "Matambrito de Cerdo", "cerdo", 560, "kg", "Fino y sabroso, se hace en minutos a la parrilla; también queda bien arrollado y relleno."),
+  item("costillitas", "Costillitas (Baby Backs)", "cerdo", 640, "kg", "Costillas chicas y carnosas, para cocinar lento con su salsa preferida hasta que se despeguen del hueso."),
+  item("pechito-cerdo", "Pechito de Cerdo", "cerdo", 520, "kg", "Con su capa de grasa y cartílago, rinde mucho. Para horno lento o parrilla baja."),
+
+  // Pollo
+  item("pollo-entero", "Pollo Entero", "pollo", 270, "kg", "Pollo fresco para el horno, la parrilla o la olla. Se entrega limpio y listo para condimentar."),
+  item("pechuga", "Pechuga deshuesada", "pollo", 420, "kg", "Sin hueso ni piel, magra y versátil: para milanesas, plancha, salteados o rellenos."),
+  item("muslos-encuentro", "Muslos con Encuentro", "pollo", 290, "kg", "Muslo y contramuslo unidos, jugosos y con sabor. Perfectos para horno, parrilla o guiso."),
+  item("milanesas-pollo", "Milanesas de Pollo preparadas", "pollo", 480, "kg", "Pechuga cortada fina y empanada, lista para freír u hornear."),
+  item("alitas", "Alitas", "pollo", 310, "kg", "Alitas frescas para horno o parrilla, con o sin salsa picante."),
+
+  // Achuras & Embutidos
+  item("chorizo-criollo", "Chorizo Criollo", "achuras", 420, "kg", "Mezcla de carne vacuna y cerdo con especias criollas. Para el choripán o la parrilla."),
+  item("chorizo-cerdo", "Chorizo de Cerdo", "achuras", 380, "kg", "Chorizo fresco de cerdo, jugoso y de sabor suave."),
+  item("morcilla", "Morcilla Dulce/Salada", "achuras", 320, "kg", "Tradicional morcilla uruguaya. Consultá si la querés dulce o salada."),
+  item("chinchulines", "Chinchulines", "achuras", 340, "kg", "Intestino delgado vacuno, limpio y listo para hacer crocante en la parrilla."),
+  item("mollejas", "Mollejas", "achuras", 980, "kg", "Tiernas y cremosas por dentro, se doran a la parrilla con limón."),
+
+  // Packs & Promo Familia
+  item("pack-parri", "Pack Parri Clásico", "paquetes", 2900, "pack", "2 kg de asado, 1 kg de chorizos y 1 kg de colita de cuadril. Todo para una parrillada de ocho."),
+  item("pack-semana", "Pack Semana Familiar", "paquetes", 3200, "pack", "1 kg de nalga para milanesas, 1 kg de carne picada especial, 2 kg de pechuga y 1 kg de carne de cerdo."),
+  item("pack-domingo", "Pack Asado Domingo", "paquetes", 4200, "pack", "3 kg de asado de tira, 1,5 kg de pulpón, chorizos y morcillas para la mesa del domingo."),
 ];

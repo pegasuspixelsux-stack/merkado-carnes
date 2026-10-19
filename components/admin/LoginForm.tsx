@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { signIn, useSession } from "@/lib/auth";
 
 const input =
-  "w-full rounded-xl border border-walnut/15 bg-cream px-3.5 py-2.5 text-sm text-walnut placeholder:text-zinc-500 focus:border-walnut/30 dark:border-white/10 dark:bg-zinc-950 dark:text-white dark:focus:border-white/30";
+  "w-full rounded-xl border border-walnut/15 bg-cream px-3.5 py-2.5 text-sm text-walnut placeholder:text-zinc-500 focus:border-walnut/30 dark:border-white/10 dark:bg-background dark:text-white dark:focus:border-white/30";
 
 export default function LoginForm() {
   const router = useRouter();

@@ -71,7 +71,7 @@ export default function CatalogView() {
       {/* Full-bleed: sits outside the narrow content column, flush under the nav. */}
       <HeroSlideshow config={heroConfig} />
 
-      <main id="catalog" className="mx-auto w-full max-w-4xl flex-1 px-6 pb-10 pt-8">
+      <main id="catalog" className="mx-auto w-full max-w-[1440px] flex-1 px-6 pb-10 pt-8">
         {/* Visually hidden: announces result counts to screen readers. */}
         <p aria-live="polite" className="sr-only">
           {hydrated
@@ -107,11 +107,11 @@ export default function CatalogView() {
 
         {!hydrated ? (
           // Skeleton shaped like the final grid, shown until the saved inventory is read.
-          <ul className="grid grid-cols-1 gap-5" aria-hidden="true">
+          <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="true">
             {Array.from({ length: 4 }).map((_, i) => (
               <li
                 key={i}
-                className="h-48 animate-pulse rounded-[14px] border border-walnut/15 bg-cream/70 dark:border-white/10 dark:bg-zinc-900/50"
+                className="h-48 animate-pulse rounded-[14px] border border-walnut/15 bg-cream/70 dark:border-white/10 dark:bg-card"
               />
             ))}
           </ul>
@@ -137,7 +137,7 @@ export default function CatalogView() {
             )}
           </div>
         ) : (
-          <ul className="grid grid-cols-1 gap-5">
+          <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((item) => (
               <PastaCard
                 key={item.id}

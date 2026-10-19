@@ -3,25 +3,73 @@
 /* Class-based dark mode so the footer switch can override the system setting. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  --background: #ecdfc8; /* cedar */
-  --foreground: #18181b; /* zinc-900 */
-}
+@layer base {
+  :root {
+    /* Light Mode - Marbled Gourmet */
+    --background: 30 20% 98%; /* Parchment / Soft off-white (#FAFAF9) */
+    --foreground: 20 14.3% 4.1%; /* Deep Charcoal (#1C1917) */
+    --card: 0 0% 100%; /* Pure White */
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 0 72% 38%; /* Oxblood / Deep Crimson (#991B1B) */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 30 10% 92%;
+    --secondary-foreground: 20 14.3% 4.1%;
+    --muted: 30 10% 92%;
+    --muted-foreground: 25 5.3% 45%;
+    --accent: 38 92% 50%; /* Amber Flame (#D97706) */
+    --accent-foreground: 0 0% 100%;
+    --border: 30 10% 88%; /* Light Stone Border (#E7E5E4) */
+    --input: 30 10% 88%;
+    --ring: 0 72% 38%;
+  }
 
-.dark {
-  --background: #09090b; /* zinc-950 */
-  --foreground: #f4f4f5; /* zinc-100 */
+  .dark {
+    /* Dark Mode - Obsidian Charcoal & Crimson */
+    --background: 20 14.3% 4.1%; /* Obsidian Charcoal (#0C0A09) */
+    --foreground: 30 20% 98%; /* Soft Off-White (#F5F5F4) */
+    --card: 24 9.8% 10%; /* Deep Stone Card (#1C1917) */
+    --card-foreground: 30 20% 98%;
+    --popover: 24 9.8% 10%;
+    --popover-foreground: 30 20% 98%;
+    --primary: 0 72% 45%; /* Crimson Flame (#B91C1C) */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 30 20% 98%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 38 92% 50%; /* Amber Flame (#F59E0B) */
+    --accent-foreground: 0 0% 100%;
+    --border: 12 6.5% 15.1%; /* Dark Stone Border (#292524) */
+    --input: 12 6.5% 15.1%;
+    --ring: 0 72% 45%;
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  /* Warm Coastal Cedar: cedar tan page, chestnut frame, walnut text, cream trim. */
-  --color-chestnut: #6b3e22;
-  --color-chestnut-hover: #7f4b2b;
-  --color-walnut: #3d2616;
-  --color-muted: #6b5544;
-  --color-cream: #fbf6ea;
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  /* Legacy brand tokens the components already use, now pointing at the palette above. */
+  --color-chestnut: hsl(var(--primary));
+  --color-chestnut-hover: hsl(var(--primary) / 0.85);
+  --color-walnut: hsl(var(--foreground));
+  --color-muted: hsl(var(--muted-foreground)); /* used as text colour: text-muted */
+  --color-cream: hsl(var(--card));
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -36,44 +84,29 @@ html.dark {
   color-scheme: dark;
 }
 
-/* Faint wood grain on the light theme only. Fixed, behind content, never intercepts input. */
-html:not(.dark) body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    repeating-linear-gradient(90deg, rgb(107 62 34 / 0.035) 0 1px, transparent 1px 9px),
-    repeating-linear-gradient(90deg, rgb(107 62 34 / 0.02) 0 2px, transparent 2px 23px);
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 ::selection {
-  background: #6b3e22;
-  color: #fff;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
 }
 
 .dark ::selection {
   background: rgb(255 255 255 / 0.9);
-  color: #09090b;
+  color: #020617;
 }
 
 :focus-visible {
-  outline: 2px solid #6b3e22;
+  outline: 2px solid hsl(var(--ring));
   outline-offset: 3px;
   border-radius: 8px;
 }
 
-.dark :focus-visible {
-  outline-color: #fff;
-}
 
 /* Entrance and reveal: transform and opacity only, and only when motion is allowed. */
 @media (prefers-reduced-motion: no-preference) {
@@ -107,9 +140,9 @@ body {
   .glass {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
-    background-color: #f4ecdb !important;
+    background-color: hsl(var(--card)) !important;
   }
   .dark .glass {
-    background-color: #18181b !important;
+    background-color: hsl(var(--card)) !important;
   }
 }

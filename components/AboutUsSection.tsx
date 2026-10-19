@@ -39,7 +39,7 @@ export default function AboutUsSection() {
     <section
       id="about"
       aria-labelledby="about-toggle"
-      className="border-t border-walnut/15 bg-cream/70 dark:border-white/10 dark:bg-zinc-900/50"
+      className="border-t border-walnut/15 bg-cream/70 dark:border-white/10 dark:bg-card"
     >
       <h2 className="m-0">
         <button
@@ -50,7 +50,7 @@ export default function AboutUsSection() {
           onClick={() => setTouched(!open)}
           className="w-full text-left text-base font-medium text-walnut transition-colors hover:bg-walnut/5 dark:text-white dark:hover:bg-white/5"
         >
-          <span className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+          <span className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-6 py-4">
             Conocé nuestra historia
             <ChevronDown
               className={`h-5 w-5 shrink-0 transition-transform duration-300 motion-reduce:transition-none ${open ? "rotate-180" : ""}`}
@@ -72,7 +72,7 @@ export default function AboutUsSection() {
         }`}
       >
         <div className="min-h-0 overflow-hidden">
-          <div className="mx-auto grid max-w-7xl gap-6 border-t border-walnut/15 px-6 py-8 md:grid-cols-2 md:items-center md:gap-10 md:py-10 dark:border-white/10">
+          <div className="mx-auto grid max-w-[1440px] gap-6 border-t border-walnut/15 px-6 py-8 md:grid-cols-2 md:items-center md:gap-10 md:py-10 dark:border-white/10">
             <PastaImage
               url={storeInfo.about.imageUrl}
               alt={storeInfo.about.imageAlt}

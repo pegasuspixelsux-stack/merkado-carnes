@@ -2,7 +2,7 @@ import type { Category } from "@/types/category";
 import type { CategoryBackend } from "./backend";
 import { SEED_CATEGORIES } from "./seed";
 
-const KEY = "merkado:categories:v1";
+const KEY = "merkado:categories:v2";
 const listeners = new Set<() => void>();
 let cache: Category[] | null = null;
 

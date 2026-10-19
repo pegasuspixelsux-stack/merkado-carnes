@@ -5,7 +5,7 @@ import type { Category, CategoryDetails } from "@/types/category";
 import { MAX_DESCRIPTION_LENGTH, MAX_NAME_LENGTH, slugify } from "@/lib/categories/rules";
 
 const input =
-  "w-full rounded-xl border border-walnut/15 bg-cream px-3.5 py-2.5 text-sm text-walnut placeholder:text-zinc-500 focus:border-walnut/30 dark:border-white/10 dark:bg-zinc-950 dark:text-white dark:focus:border-white/30";
+  "w-full rounded-xl border border-walnut/15 bg-cream px-3.5 py-2.5 text-sm text-walnut placeholder:text-zinc-500 focus:border-walnut/30 dark:border-white/10 dark:bg-background dark:text-white dark:focus:border-white/30";
 const label = "mb-1.5 block text-sm font-medium text-walnut dark:text-zinc-200";
 
 // Mounted fresh (via key) each time the dialog opens, so it always starts from `category`.

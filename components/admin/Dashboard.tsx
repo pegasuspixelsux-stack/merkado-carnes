@@ -77,7 +77,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <header className="glass sticky top-0 z-40 border-b border-walnut/15 bg-background/70 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/70">
+      <header className="glass sticky top-0 z-40 border-b border-walnut/15 bg-background/70 backdrop-blur-xl dark:border-white/10 dark:bg-background/70">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-6">
           <p className="text-lg font-bold tracking-tight text-walnut dark:text-white">
             Merkado <span className="font-normal text-muted dark:text-zinc-500">Panel</span>
@@ -165,7 +165,7 @@ export default function Dashboard() {
             {items.map((item) => (
               <li
                 key={item.id}
-                className="flex flex-wrap items-center gap-x-4 gap-y-3 bg-cream/70 p-4 dark:bg-zinc-900/50"
+                className="flex flex-wrap items-center gap-x-4 gap-y-3 bg-cream/70 p-4 dark:bg-card"
               >
                 <PastaImage
                   key={item.imageUrl}

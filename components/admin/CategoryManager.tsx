@@ -87,7 +87,7 @@ export default function CategoryManager() {
           {categories.map((c) => {
             const n = countIn(c.id);
             return (
-              <li key={c.id} className="flex flex-wrap items-center gap-x-4 gap-y-3 bg-cream/70 p-4 dark:bg-zinc-900/50">
+              <li key={c.id} className="flex flex-wrap items-center gap-x-4 gap-y-3 bg-cream/70 p-4 dark:bg-card">
                 {/* The initial sits underneath, so a missing or broken icon still shows something. */}
                 <span className="relative grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-chestnut/10 text-base font-semibold text-chestnut dark:bg-white/10 dark:text-white">
                   <span aria-hidden="true">{c.name.charAt(0).toUpperCase()}</span>

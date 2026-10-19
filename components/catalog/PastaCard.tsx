@@ -24,7 +24,7 @@ export default function PastaCard({
   const soldOut = !item.available;
 
   return (
-    <li className="group grid grid-cols-[5fr_6fr] overflow-hidden rounded-[14px] border border-walnut/15 bg-cream/70 transition-all duration-300 hover:-translate-y-0.5 hover:border-walnut/30 sm:grid-cols-[2fr_3fr] dark:border-white/10 dark:bg-zinc-900/50 dark:hover:border-white/25">
+    <li className="group grid grid-cols-[5fr_6fr] overflow-hidden rounded-[14px] border border-walnut/15 bg-cream/70 transition-all duration-300 hover:-translate-y-0.5 hover:border-walnut/30 sm:grid-cols-[2fr_3fr] lg:grid-cols-1 dark:border-white/10 dark:bg-card dark:hover:border-white/25">
       {/* Left: image, no padding, always square */}
       <div className="relative aspect-square w-full">
         <PastaImage
@@ -43,18 +43,18 @@ export default function PastaCard({
       {/* Right: title, description, then quantity stepper and price on one row.
           Absolutely filled so the square image alone decides the card height. */}
       <div className="relative min-w-0">
-        <div className="absolute inset-0 flex flex-col overflow-hidden p-3.5 sm:p-6 md:p-8">
+        <div className="absolute inset-0 flex flex-col overflow-hidden p-3.5 sm:p-6 md:p-8 lg:static lg:p-5">
           <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-walnut max-[360px]:line-clamp-1 sm:text-lg md:text-xl dark:text-white">
             {item.title}
           </h3>
-          <div className="flex min-h-0 flex-1 flex-col max-[360px]:hidden">
+          <div className="flex min-h-0 flex-1 flex-col max-[360px]:hidden lg:h-24 lg:flex-none">
             <FillText
               text={item.description}
               className="text-sm leading-relaxed text-muted md:text-base md:leading-relaxed dark:text-zinc-400"
             />
           </div>
 
-          <div className="mt-auto flex items-end justify-between gap-2 sm:gap-3">
+          <div className="mt-auto flex items-end lg:pt-4 justify-between gap-2 sm:gap-3">
             <div>
               <p id={`qty-${item.id}`} className="mb-1 hidden text-xs text-muted sm:block dark:text-zinc-400">
                 Cantidad

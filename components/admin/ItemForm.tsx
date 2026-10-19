@@ -6,7 +6,7 @@ import { useCategories } from "@/hooks/useCategories";
 import Switch from "./Switch";
 
 const input =
-  "w-full rounded-xl border border-walnut/15 bg-cream px-3.5 py-2.5 text-sm text-walnut placeholder:text-zinc-500 focus:border-walnut/30 dark:border-white/10 dark:bg-zinc-950 dark:text-white dark:focus:border-white/30";
+  "w-full rounded-xl border border-walnut/15 bg-cream px-3.5 py-2.5 text-sm text-walnut placeholder:text-zinc-500 focus:border-walnut/30 dark:border-white/10 dark:bg-background dark:text-white dark:focus:border-white/30";
 const label = "mb-1.5 block text-sm font-medium text-walnut dark:text-zinc-200";
 const errorText = "mt-1.5 text-xs text-red-700 dark:text-red-400";
 
