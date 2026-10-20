@@ -139,7 +139,7 @@ export default function HeroSlideshow({ config }: { config: HeroConfig }) {
       onPointerLeave={(e) => e.pointerType === "mouse" && setEngaged(false)}
       onFocusCapture={() => setEngaged(true)}
       onBlurCapture={() => setEngaged(false)}
-      className="@container relative aspect-square max-h-[calc(100dvh-4rem)] w-full md:max-h-[calc(100dvh-3.5rem)] overflow-hidden bg-zinc-900"
+      className="@container relative aspect-video md:aspect-square max-h-[calc(100dvh-4rem)] w-full md:max-h-[calc(100dvh-3.5rem)] overflow-hidden bg-zinc-900"
     >
       {/* With no slides this stays a quiet solid background. */}
       {count === 0 && (

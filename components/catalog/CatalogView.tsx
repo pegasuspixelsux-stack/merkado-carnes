@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { SearchX } from "lucide-react";
+import { Beef, Drumstick, Flame, Ham, Package, Search, SearchX, SlidersHorizontal, Store, Utensils } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import CategoryIcon from "@/components/CategoryIcon";
 import { useCategories } from "@/hooks/useCategories";
 import { normalize } from "@/lib/format";
@@ -13,6 +14,16 @@ import CartBar from "./CartBar";
 import PastaCard from "./PastaCard";
 
 type Filter = string; // a category id, or "all"
+type Sort = "default" | "price-asc" | "price-desc" | "name";
+
+// Fallback glyphs for the seeded categories; an admin-supplied icon image takes priority.
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  vaca: Beef,
+  cerdo: Ham,
+  pollo: Drumstick,
+  achuras: Flame,
+  paquetes: Package,
+};
 
 const pill =
   "shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors";
@@ -37,19 +48,39 @@ export default function CatalogView() {
   // If the chosen category was deleted in the meantime, fall back to All instead of an empty grid.
   const category = chosen === "all" || categories.some((c) => c.id === chosen) ? chosen : "all";
 
+  const [showFilters, setShowFilters] = useState(false);
+  const [sort, setSort] = useState<Sort>("default");
+  const [onlyAvailable, setOnlyAvailable] = useState(false);
+
   const visible = useMemo(() => {
     const q = normalize(query.trim());
-    return items.filter((i) => {
+    const list = items.filter((i) => {
       if (category !== "all" && i.category !== category) return false;
+      if (onlyAvailable && !i.available) return false;
       if (!q) return true;
       return normalize(i.title).includes(q) || normalize(i.description).includes(q);
     });
-  }, [items, query, category]);
+    if (sort === "price-asc") list.sort((a, b) => a.price - b.price);
+    else if (sort === "price-desc") list.sort((a, b) => b.price - a.price);
+    else if (sort === "name") list.sort((a, b) => a.title.localeCompare(b.title, "es"));
+    return list;
+  }, [items, query, category, onlyAvailable, sort]);
 
-  const filtering = query.trim() !== "" || category !== "all";
+  const activeFilters = (onlyAvailable ? 1 : 0) + (sort !== "default" ? 1 : 0);
+  const filtering = query.trim() !== "" || category !== "all" || onlyAvailable;
+
+  // The query lives in the URL (the nav search reads it too), so both bars stay in sync.
+  function onType(value: string) {
+    const url = new URL(window.location.href);
+    if (value.trim()) url.searchParams.set("q", value);
+    else url.searchParams.delete("q");
+    window.history.replaceState(null, "", url);
+  }
 
   function clearFilters() {
     setCategory("all");
+    setOnlyAvailable(false);
+    setSort("default");
     // The nav search follows the URL, so clearing ?q= clears it too.
     window.history.replaceState(null, "", window.location.pathname);
   }
@@ -69,28 +100,112 @@ export default function CatalogView() {
             : "Cargando el catálogo"}
         </p>
 
-        {/* Category filters, above the grid. */}
-        <div role="group" aria-label="Filtrar por categoría" className="mb-8 flex flex-wrap gap-2">
-          <button
-            type="button"
-            aria-pressed={category === "all"}
-            onClick={() => setCategory("all")}
-            className={`${pill} ${category === "all" ? pillOn : pillOff}`}
-          >
-            Todos
-          </button>
-          {categories.map((c) => (
+        {/* Full-width search with a collapsible filter panel. */}
+        <div className="mb-5 w-full">
+          <div className="flex w-full gap-2">
+            <form role="search" onSubmit={(e) => e.preventDefault()} className="relative min-w-0 flex-1">
+              <Search
+                className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500"
+                aria-hidden="true"
+              />
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => onType(e.target.value)}
+                placeholder="Buscá cortes, pollo, achuras"
+                aria-label="Buscar en el catálogo"
+                className="w-full rounded-full border border-walnut/15 bg-cream/70 py-3 pl-10 pr-4 text-sm text-walnut placeholder:text-zinc-500 focus:border-chestnut focus:outline-none dark:border-white/10 dark:bg-card dark:text-white [&::-webkit-search-cancel-button]:appearance-none"
+              />
+            </form>
             <button
-              key={c.id}
               type="button"
-              aria-pressed={category === c.id}
-              onClick={() => setCategory(c.id)}
-              className={`${pill} inline-flex items-center gap-1.5 ${category === c.id ? pillOn : pillOff}`}
+              aria-expanded={showFilters}
+              aria-controls="catalog-filters"
+              onClick={() => setShowFilters((v) => !v)}
+              className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors ${
+                showFilters || activeFilters ? pillOn : pillOff
+              }`}
             >
-              <CategoryIcon key={c.icon} icon={c.icon} className="h-4 w-4 rounded-full" />
-              {c.name}
+              <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
+              <span className="hidden sm:inline">Filtros</span>
+              {activeFilters > 0 && <span aria-label={`${activeFilters} activos`}>({activeFilters})</span>}
             </button>
-          ))}
+          </div>
+
+          {showFilters && (
+            <div
+              id="catalog-filters"
+              className="mt-3 flex w-full flex-wrap items-center gap-x-6 gap-y-3 rounded-[14px] border border-walnut/15 bg-cream/70 p-4 text-sm text-walnut dark:border-white/10 dark:bg-card dark:text-white"
+            >
+              <label className="flex items-center gap-2">
+                <span className="font-medium">Ordenar por</span>
+                <select
+                  value={sort}
+                  onChange={(e) => setSort(e.target.value as Sort)}
+                  className="rounded-full border border-walnut/15 bg-background px-3 py-1.5 dark:border-white/10"
+                >
+                  <option value="default">Destacados</option>
+                  <option value="price-asc">Precio: menor a mayor</option>
+                  <option value="price-desc">Precio: mayor a menor</option>
+                  <option value="name">Nombre (A-Z)</option>
+                </select>
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={onlyAvailable}
+                  onChange={(e) => setOnlyAvailable(e.target.checked)}
+                  className="h-4 w-4 accent-chestnut"
+                />
+                <span className="font-medium">Solo disponibles</span>
+              </label>
+              {(activeFilters > 0 || category !== "all") && (
+                <button type="button" onClick={clearFilters} className="ml-auto text-chestnut underline">
+                  Limpiar
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Category filters, above the grid. */}
+        <div
+          role="group"
+          aria-label="Filtrar por categoría"
+          className="mb-8 flex gap-4 overflow-x-auto pb-2 md:flex-wrap md:gap-6"
+        >
+          {[{ id: "all", name: "Todos", icon: undefined }, ...categories].map((c) => {
+            const on = category === c.id;
+            const Fallback = c.id === "all" ? Store : (CATEGORY_ICONS[c.id] ?? Utensils);
+            return (
+              <button
+                key={c.id}
+                type="button"
+                aria-pressed={on}
+                onClick={() => setCategory(c.id)}
+                className="group flex w-20 shrink-0 flex-col items-center gap-2 md:w-24"
+              >
+                <span
+                  className={`flex h-16 w-16 items-center justify-center overflow-hidden rounded-full border transition-colors md:h-20 md:w-20 ${
+                    on ? pillOn : pillOff
+                  }`}
+                >
+                  {c.icon ? (
+                    <CategoryIcon key={c.icon} icon={c.icon} className="h-full w-full" />
+                  ) : (
+                    <Fallback className="h-7 w-7 md:h-8 md:w-8" strokeWidth={1.5} aria-hidden="true" />
+                  )}
+                </span>
+                <span
+                  className={`text-center text-xs font-medium leading-tight md:text-sm ${
+                    on ? "text-chestnut" : "text-muted dark:text-zinc-400"
+                  }`}
+                >
+                  {c.name}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {!hydrated ? (
